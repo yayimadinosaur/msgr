@@ -1,0 +1,62 @@
+Back-end: Setup Postgres / Mongo for project #9
+-----
+-Connect to a database technology on start of your application (please only select one technology, try to choose something that is a good fit for your project if possible, or something you are comfortable with using)
+-Create a very basic user model that will be needed for login / signup of the application
+-Update the Readme of the application to include some instructions on how to run the application with the db locally
+
+Here are some resources on the technologies:
+
+-Postgres - use SQLAlchemy if you are using Flask/Python and use Sequelize if you are using Node.js/Express
+-MongoDB - use Mongoose for Node.js or PyMongo + some object document mapper to make things organized
+
+>>>>>
+Back-end: Messaging Application #8
+-----
+Build the back-end for the messaging application
+You will need:
+-a way to store conversations and messages
+-an API call to get all conversations for a user
+-an API call to get all messages for a conversation (ordered in a way that makes sense)
+-an API to search for users to find them to talk to
+
+>>>>>
+Back-end: Signup / Login API Routes #7
+-----
+-Create a Register route (POST)
+	this will create a new user, return 201
+	validation on the back-end - password should be atleast 6 characters, required fields (email, name)
+	simple password validation (>6 chars)
+-Create a Login route (POST)
+	verify username and password
+	return 4xx if things are incorrect
+-User model, don't want to save password directly on the database (hash/salt before we save them)
+-Add an auth middleware / decorator - we can easily create authenticated routes and get the user object
+-Try to use a decent authentication strategy something like using HTTP only cookies or localstorage
+
+>>>>>
+Sockets: making messaging real-time #5
+-----
+-Add socket support on the front-end and back-end so that the messages are real-time
+-use this package socket.io for real-time notifications
+-Setup socket server on the backend
+-Setup client connection (should connect if the user is authed, add some layer of security would be best)
+-If you are planning on doing online statuses, we also want an object to keep track of which users are currently connected - for simplicity, you can for now just use an in-memory variable (like a dictionary or object in the back-end - not recommended for scalability, but it works for this project)
+
+>>>>>
+Front-end: Signup / Login Pages #4
+-----
+-create two front-end react routers (login and signup)
+-There is no landing page - redirect to signup
+-Signup page - name, email, password + confirm password
+-Ignore Forget password (we don't need that right now)
+-Front-end validation as well:
+	Examples: Password length >= 6, All fields are required, email is properly formatted (if you wrap signup and login in an HTML form, you can leverage some front-end HTML form validation, required and right typing)
+	leverage error, helperText, and snackbars (material-ui) for showing validation errors, https://material-ui.com/components/snackbars/ + https://material-ui.com/components/text-fields/
+
+Stretch Goal: make this page responsive by remove any side images on smaller screens
+
+>>>>>
+Front-end: Messaging Application #1
+-----
+Build and replicate the front-end of the application
+

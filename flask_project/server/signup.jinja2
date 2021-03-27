@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content1 %}
+    <div>
+        <h2>Signup</h2>
+    </div>
+    <form method="POST" action="{{ url_for('welcome') }}">
+        <fieldset>
+        {{ form.first_name.label }}
+        {{ form.first_name }}
+        </fieldset>
+        
+        <fieldset>
+        {{ form.last_name.label }}
+        {{ form.last_name }}
+        </fieldset>
+
+        <fieldset>
+        {{ form.email.label }}
+        {{ form.email }}
+        </fieldset>
+
+        <fieldset>
+        {{ form.password.label }}
+        {{ form.password }}
+        </fieldset>
+
+        {{ form.submit }}
+        </form>
+    </div>
+
+{% endblock %}
