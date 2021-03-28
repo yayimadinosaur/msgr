@@ -61,6 +61,10 @@ def signup():
     if form.goback.data:
         print(f"go back clicked")
         return redirect(url_for('welcome'))
+    if form.validate_on_submit():
+        print("signup successful!\n")
+        return redirect(url_for("hello_user", name=form.data["username"]))
+    print(f'error found! {form.errors}')
     return render_template(
         "signup.jinja2",
         form=form,
