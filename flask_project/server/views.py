@@ -114,7 +114,7 @@ def messages():
     return f'welcome to the messages page'
 
 
-#   TEST AREA TO READ DB
+#   TEST AREA TO READ DB locally
 #TODO   >>>>REMOVE AFTER TESTING<<<<<
 @app.route('/psql/', methods=['GET', 'POST'])
 def psql_db():
