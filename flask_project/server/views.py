@@ -15,8 +15,8 @@ def success():
     return jsonify(
         {
             "success" : "login worked",
-            "email" : "",
-            "password" : "",
+            "email" : session['email'],
+            "password" : session['password'],
         }
     )
 #   welcome page
@@ -39,8 +39,13 @@ def welcome():
         user = User()
         user.email = form.data['email']
         user.password = form.data['password']
-        print('home form values successful')
+        session['email'] = form.data['email']
+        session['password'] = form.data['password']
+        print(f"sesssion email is {session['email']}")
+        print('login successful')
         print(f"printing form data\n{form.data}")
+        print(f'printing user class values\n')
+        print(f'user.email {user.email}\nuser.password {user.password}\n')
         return redirect(url_for('success', user=user))
     print(f"errors\n{form.errors}")
     return render_template(
@@ -62,27 +67,21 @@ def signup():
         print(f"go back clicked")
         return redirect(url_for('welcome'))
     if form.validate_on_submit():
+        session['first_name'] = form.data['first_name']
+        session['last_name'] = form.data['last_name']
+        session['username'] = form.data['username']
+        session['email'] = form.data['email']
+        session['password'] = form.data['password']
         print("signup successful!\n")
+        #TODO check form data w/ psql db
+        #TODO if data valid, direct to hello_user, if not redirect to fail?
         return redirect(url_for("hello_user", name=form.data["username"]))
     print(f'error found! {form.errors}')
     return render_template(
         "signup.jinja2",
         form=form,
-        template="form-template"
+        # template="form-template"
     )
-    # form = SignupForm()
-    # if form.validate_on_submit():
-    #     if request.method == 'POST':
-    #         return redirect(url_for("success"))
-    # else:
-    #     return jsonify(
-    #         {"noob" : "signup fail"}
-    #         )
-    # return render_template(
-    #     "signup.jinja2",
-    #     form=form,
-    #     template="form-template"
-    # )
 
 #   login page
 @app.route('/login/', methods=['GET', 'POST'])
@@ -106,9 +105,17 @@ def users():
 #   profile page for other users?
 @app.route('/user/<name>')
 def hello_user(name):
-    return f"Hello {name}, this is your user page"
+    # return f"Hello {name}, this is your user page"
+    return render_template('user_home.jinja2')
 
 #   account + messages for user?
 @app.route('/messages/')
 def messages():
     return f'welcome to the messages page'
+
+
+#   TEST AREA TO READ DB
+#TODO   >>>>REMOVE AFTER TESTING<<<<<
+@app.route('/psql/', methods=['GET', 'POST'])
+def psql_db():
+    return url_for('psql_db')
