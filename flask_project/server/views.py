@@ -1,5 +1,5 @@
 # from models import Users, UserMessages, LoginData
-from run import app
+from run import app, db
 from flask import jsonify, render_template, url_for, redirect, request, session
 
 #   import register + login forms
@@ -90,11 +90,20 @@ def signup():
         user_details = {
             'username' : form.data['username'],
             'email' : form.data['email'],
-            'password' : form.data['password']
+            'password' : form.data['password'],
+            'first_name' : form.data['first_name'],
+            'last_name' : form.data['last_name'],
+            #   make online status to timestamp in the future
+            'online_status' : True,
         }
         lookup = database.create_user(user_details)
+        print(f'create user so far\n{lookup}')
         if lookup:
             print("yay u can signup")
+            db.session.add(lookup)
+            db.session.commit()
+            #   db.session.flush() somehow made the autoincrement work
+            print("session committed for signup created user")
         else:
             print("fail cannot signup")
             #return redirect(url_for('signup'))

@@ -63,7 +63,23 @@ def create_user(user_details):
         print("username is already taken")
         return False
     print(f'email {user_details["email"]} + username {user_details["username"]} available')
-    return True
+    #   insert user_details into psql db
+    new_user_details = Users(
+        #   somehow db.session.flush() made the user_id autoincrement
+        user_id = None,
+        username = user_details["username"],
+        first_name = user_details["first_name"],
+        last_name = user_details["last_name"],
+        online_status = user_details["online_status"],
+    )
+    return new_user_details
+    # new_user_credentials = LoginData(
+
+    # )
+    # new_user = (new_user_details, new_user_credentials)
+    # return new_user
+
+
     #   check if user exists
     # lookup_user(username, password)
     #       if not create

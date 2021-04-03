@@ -20,7 +20,7 @@ class Users(db.Model):
         self.online_status = online_status
 
     def __repr__(self):
-        return f'<user_id {self.user_id} username {self.username} first_name {self.first_name} last_name {self.last_name} online_status {online_status}'
+        return f'<user_id {self.user_id} username {self.username} first_name {self.first_name} last_name {self.last_name} online_status {self.online_status}'
 
 #TODO   probably need to make a list or dict of all the messages for each user
 #       or they won't be able to load the messages properly and efficiently
