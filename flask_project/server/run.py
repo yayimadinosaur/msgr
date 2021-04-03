@@ -28,6 +28,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = '{db_type}{db_user}:{db_pw}@{host}:{port
 print(app.config['SQLALCHEMY_DATABASE_URI'])
 #   init sqlalchemy
 db = SQLAlchemy(app)
+
+#   flask api?
 api = Api(app)
 #   secret key
 app.secret_key = os.environ['APP_SECRET_KEY']
@@ -51,6 +53,7 @@ if not db_check:
 #   create tables for db
 db.create_all()
 
+#   flask api?
 api.add_resource(resources.UserRegistration, '/registration')
 
 if __name__ == '__main__':

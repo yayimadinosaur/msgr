@@ -1,11 +1,14 @@
-from models import Users, UserMessages, LoginData
+# from models import Users, UserMessages, LoginData
 from run import app
 from flask import jsonify, render_template, url_for, redirect, request, session
 
 #   import register + login forms
 from forms import SignupForm, LoginForm
 #   import user (custom)
+#   do we need?
 from user import User
+
+import database
 
 @app.route('/success/', methods=["GET", "POST"])
 def success():
@@ -35,6 +38,21 @@ def welcome():
         print(f"printing form data\n{form.data}\n")
         return redirect(url_for('signup'))
     if form.validate_on_submit():
+        #       OLD way of looking up user email, use data.login instead
+        # lookup = database.lookup_email(form.data['email'])
+        # if lookup:
+        #     print(f'lookup email passed')
+        # else:
+        #     print(f'lookup email failed')
+        #     return redirect(url_for('welcome'))
+        login_user_check = database.login_user(form.data['email'], form.data['password'])
+        if login_user_check == False:
+            print("LOGIN FAILED BRUH GG")
+            return redirect((url_for('welcome')))
+        #   check login credentials w/ psql database
+        #   if error, display error msg
+        #   if pass, session['username'] set to form username
+        #   access token + refresh token?
         print(f"login clicked + success")
         user = User()
         user.email = form.data['email']
@@ -44,9 +62,11 @@ def welcome():
         print(f"sesssion email is {session['email']}")
         print('login successful')
         print(f"printing form data\n{form.data}")
-        print(f'printing user class values\n')
+        print(f'>>>printing user class values<<<\n')
         print(f'user.email {user.email}\nuser.password {user.password}\n')
         return redirect(url_for('success', user=user))
+    #   invalid credentials
+    #   do something with ui and error msg
     print(f"errors\n{form.errors}")
     return render_template(
         "home.jinja2",
@@ -67,6 +87,18 @@ def signup():
         print(f"go back clicked")
         return redirect(url_for('welcome'))
     if form.validate_on_submit():
+        user_details = {
+            'username' : form.data['username'],
+            'email' : form.data['email'],
+            'password' : form.data['password']
+        }
+        lookup = database.create_user(user_details)
+        if lookup:
+            print("yay u can signup")
+        else:
+            print("fail cannot signup")
+            #return redirect(url_for('signup'))
+        #TODO sessions are no necessary, only username?
         session['first_name'] = form.data['first_name']
         session['last_name'] = form.data['last_name']
         session['username'] = form.data['username']
@@ -75,7 +107,7 @@ def signup():
         print("signup successful!\n")
         #TODO check form data w/ psql db
         #TODO if data valid, direct to hello_user, if not redirect to fail?
-        return redirect(url_for("hello_user", name=form.data["username"]))
+        #return redirect(url_for("hello_user", name=form.data["username"]))
     print(f'error found! {form.errors}')
     return render_template(
         "signup.jinja2",

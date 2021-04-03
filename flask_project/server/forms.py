@@ -4,10 +4,22 @@ from wtforms.validators import InputRequired, Length, Email, EqualTo, Validation
 # from flask import render_template
 # from wtforms.validators import DataRequired, Length, Email
 
+import database
+
 #TODO   make check for special char, length, num requirement
 def is_confirm_password(form, field):
     if form.data["password"] != form.data["confirm"]:
         raise ValidationError('Passwords must match omg')
+
+def username_available(form, field):
+    available = database.lookup_username(form.data["username"])
+    if available == True:
+        raise ValidationError(f'username {form.data["username"]} is already taken')
+
+def email_used(form, field):
+    used = database.lookup_email(form.data["email"])
+    if used:
+        raise ValidationError(f'email {form.data["email"]} is already registered')
 
 class SignupForm(FlaskForm):
     #   change all input required to have css changes i.e. text to red to notify required parameters
@@ -23,14 +35,16 @@ class SignupForm(FlaskForm):
         'Username',
         [
             InputRequired(),
-            Length(min=3, message=('Minimum of 3 characters for Username'))
+            Length(min=3, message=('Minimum of 3 characters for Username')),
+            username_available,
         ]
     )
     email = StringField(
         'Email',
         [
+            InputRequired(),
             Email(message=('Not a valid email')),
-            InputRequired()
+            email_used,
         ]
     )
     #   add a show password button to show password
