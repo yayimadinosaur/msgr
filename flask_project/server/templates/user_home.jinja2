@@ -2,7 +2,7 @@
 
 {% block head %}
     <title>
-        Welcome {{ session['first_name'] }}
+        Welcome {{ session['username'] }}
     </title>
 {% endblock %}
 
@@ -10,18 +10,26 @@
     <div>
         <ul>
             <li>user logged in?</li>
+                <!--
                 {% if not session.logged_in %}
                     <a href="{{ url_for('welcome') }}">log in</a>
                 {% else %}
                     <a href="{{ url_for('logout') }}">log out</a>
                 {% endif %}
+                -->
+                {% if 'username' in session %}
+                    <a href="{{ url_for('logout') }}">log out</a>
+                {% else %}
+                    <a href="{{ url_for('welcome') }}">log in</a>
+                {% endif %}
             <li>User Data</li>
             <hr></hr>
-            <li>first name : {{ session['first_name'] }} </li>
-            <li>last name : {{ session['last_name'] }}</li>
-            <li>username : {{ session['username'] }} </li>
-            <li>email : {{ session['email'] }} </li>
-            <li>password : {{ session['password'] }} </li>
+            <li> user class? : {{ user }}</li>
+            <li>first name :  </li>
+            <li>last name : </li>
+            <li>username :  </li>
+            <li>email :  </li>
+            <li>password :  </li>
         </ul>
     </div>
     
