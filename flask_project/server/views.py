@@ -56,12 +56,13 @@ def welcome():
         user = User()
         user.email = form.data['email']
         user.password = form.data['password']
+        print(f'user class details\n{user.email} {user.password}')
         session['username'] = database.get_username(database.lookup_email(form.data['email']))
         print('login successful')
         print(f"printing form data\n{form.data}")
         print(f'>>>printing user class values<<<\n')
         print(f'user.email {user.email}\nuser.password {user.password}\n')
-        return redirect(url_for('success', user=user))
+        return redirect(url_for('hello_user'))
     #   invalid credentials
     #   do something with ui and error msg
     print(f"errors\n{form.errors}")
@@ -107,9 +108,12 @@ def signup():
             print("added login data")
             #   db.session.flush() somehow made the autoincrement work
             print("session committed for signup created user")
+            #add a account created page? you can login now
+            #   redirect to login page
+            return redirect(url_for('hello_user'))
         else:
             print("fail cannot signup")
-            #return redirect(url_for('signup'))
+            return redirect(url_for('signup'))
         session['username'] = form.data['username']
         print("signup successful!\n")
         #TODO check form data w/ psql db
@@ -130,7 +134,10 @@ def login():
 #   logout page
 @app.route('/logout/')
 def logout():
-    return 'logout page'
+    session.pop('username', None)
+    return render_template(
+        "logout.jinja2",
+    )
 
 #   see all users?
 @app.route('/users/')
@@ -142,8 +149,10 @@ def users():
     )
 
 #   profile page for other users?
-@app.route('/user/<name>')
-def hello_user(name):
+# @app.route('/user/<name>')
+# def hello_user(name):
+@app.route('/userhome/')
+def hello_user():
     # return f"Hello {name}, this is your user page"
     return render_template('user_home.jinja2')
 
