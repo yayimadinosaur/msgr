@@ -21,6 +21,11 @@ def lookup_username(username):
     #   if does not exist
     #       return error - msg : invalid user / user does not exist
 
+#   get username user_id
+def get_user_id(username):
+    selected_row = Users.query.filter_by(username = username).first()
+    return selected_row.user_id
+
 #   lookup email in the database to see if the acc exists
 def lookup_email(email):
     user_check = LoginData.query.filter(
@@ -79,6 +84,16 @@ def create_user(user_details):
     # new_user = (new_user_details, new_user_credentials)
     # return new_user
 
+#   create login data for user
+def create_login_data(user_details):
+    user_login_data = LoginData(
+        user_id = get_user_id(user_details["username"]),
+        email = user_details["email"],
+        password = user_details["password"],
+        access_token = 123456,
+        refresh_token = 123455,
+    )
+    return user_login_data
 
     #   check if user exists
     # lookup_user(username, password)

@@ -102,6 +102,12 @@ def signup():
             print("yay u can signup")
             db.session.add(lookup)
             db.session.commit()
+            print(f'added lookup')
+            login_data = database.create_login_data(user_details)
+            db.session.add(login_data)
+            print(f'printing login data\n{login_data}')
+            db.session.commit()
+            print("added login data")
             #   db.session.flush() somehow made the autoincrement work
             print("session committed for signup created user")
         else:
