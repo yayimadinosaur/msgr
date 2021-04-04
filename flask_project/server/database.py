@@ -26,7 +26,13 @@ def get_user_id(username):
     selected_row = Users.query.filter_by(username = username).first()
     return selected_row.user_id
 
+#   get username from user_id
+def get_username(user_id):
+    selected_row = Users.query.filter_by(user_id=user_id).first()
+    return selected_row.username
+
 #   lookup email in the database to see if the acc exists
+#   returns user_id if it does
 def lookup_email(email):
     user_check = LoginData.query.filter(
         LoginData.email == email

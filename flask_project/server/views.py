@@ -18,8 +18,7 @@ def success():
     return jsonify(
         {
             "success" : "login worked",
-            "email" : session['email'],
-            "password" : session['password'],
+            "user_logged_in" : session["username"],
         }
     )
 #   welcome page
@@ -57,9 +56,7 @@ def welcome():
         user = User()
         user.email = form.data['email']
         user.password = form.data['password']
-        session['email'] = form.data['email']
-        session['password'] = form.data['password']
-        print(f"sesssion email is {session['email']}")
+        session['username'] = database.get_username(database.lookup_email(form.data['email']))
         print('login successful')
         print(f"printing form data\n{form.data}")
         print(f'>>>printing user class values<<<\n')
@@ -113,12 +110,7 @@ def signup():
         else:
             print("fail cannot signup")
             #return redirect(url_for('signup'))
-        #TODO sessions are no necessary, only username?
-        session['first_name'] = form.data['first_name']
-        session['last_name'] = form.data['last_name']
         session['username'] = form.data['username']
-        session['email'] = form.data['email']
-        session['password'] = form.data['password']
         print("signup successful!\n")
         #TODO check form data w/ psql db
         #TODO if data valid, direct to hello_user, if not redirect to fail?
