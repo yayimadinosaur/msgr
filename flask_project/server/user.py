@@ -5,30 +5,30 @@ class User():
 
     @property
     def email(self):
-        """ Get the first name """
+        """ Get the email"""
         return self._email
 
     @email.setter
     def email(self, value):
-        """ Set the first name """
+        """ Set the email """
         self._email = value
 
     @email.deleter
     def email(self):
-        """ Delete the first name"""
+        """ Delete the email"""
         del self._email
     
     @property
     def password(self):
-        """ Get the first name """
+        """ Get the password """
         return self._password
 
     @password.setter
     def password(self, value):
-        """ Set the first name """
+        """ Set the password """
         self._password = value
 
     @password.deleter
     def password(self):
-        """ Delete the first name"""
+        """ Delete the password"""
         del self._password
