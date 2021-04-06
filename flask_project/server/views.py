@@ -116,10 +116,6 @@ def signup():
         else:
             print("fail cannot signup")
             return redirect(url_for('signup'))
-        print("signup successful!\n")
-        #TODO check form data w/ psql db
-        #TODO if data valid, direct to hello_user, if not redirect to fail?
-        #return redirect(url_for("hello_user", name=form.data["username"]))
     print(f'error found! {form.errors}')
     return render_template(
         "signup.jinja2",
