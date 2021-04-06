@@ -10,7 +10,7 @@ from user import User
 
 import database
 
-@app.route('/success/', methods=["GET", "POST"])
+@app.route('/success', methods=["GET", "POST"])
 def success():
     #TODO fix user by using flask sessions instead?
     user = request.args['user']
@@ -23,10 +23,11 @@ def success():
     )
 #   welcome page
 #   should reroute user to login and signup
-@app.route('/home/')
+@app.route('/home', methods=["GET", "POST"])
 @app.route('/', methods=["GET", "POST"])
 def welcome():
     form = LoginForm()
+    print(f'session {session.get("username")}')
     # if form.login.data:
     #     print("login clicked")
     # if form.login.data:
@@ -71,19 +72,19 @@ def welcome():
         form=form
     )
 
-@app.route('/test/', methods=['POST'])
+@app.route('/test', methods=['POST'])
 def test_page():
     return f'test_page'
 
 #// TODO   fix signup page please
-@app.route('/signup/', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
     print(form.data)
     # print(f'errors {form.errors}')
     if form.goback.data:
         print(f"go back clicked")
-        return redirect(url_for('welcome'))
+        return redirect(url_for('welcome')) 
     if form.validate_on_submit():
         user_details = {
             'username' : form.data['username'],
@@ -127,12 +128,12 @@ def signup():
     )
 
 #   login page
-@app.route('/login/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     return 'login page'
 
 #   logout page
-@app.route('/logout/')
+@app.route('/logout', methods=["GET", "POST"])
 def logout():
     session.pop('username', None)
     return render_template(
@@ -140,7 +141,7 @@ def logout():
     )
 
 #   see all users?
-@app.route('/users/')
+@app.route('/users')
 def users():
     return jsonify(
         {
@@ -151,19 +152,23 @@ def users():
 #   profile page for other users?
 # @app.route('/user/<name>')
 # def hello_user(name):
-@app.route('/userhome/')
+@app.route('/userhome', methods=["GET", "POST"])
 def hello_user():
+    if 'username' not in session:
+        return jsonify({
+            "access" : "denied"
+        })
     # return f"Hello {name}, this is your user page"
     return render_template('user_home.jinja2')
 
 #   account + messages for user?
-@app.route('/messages/')
+@app.route('/messages', methods=["GET", "POST"])
 def messages():
     return f'welcome to the messages page'
 
 
 #   TEST AREA TO READ DB locally
 #TODO   >>>>REMOVE AFTER TESTING<<<<<
-@app.route('/psql/', methods=['GET', 'POST'])
+@app.route('/psql', methods=['GET', 'POST'])
 def psql_db():
     return url_for('psql_db')
