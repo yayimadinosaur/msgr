@@ -109,13 +109,13 @@ def signup():
             print("added login data")
             #   db.session.flush() somehow made the autoincrement work
             print("session committed for signup created user")
+            session['username'] = form.data['username']
             #add a account created page? you can login now
             #   redirect to login page
             return redirect(url_for('hello_user'))
         else:
             print("fail cannot signup")
             return redirect(url_for('signup'))
-        session['username'] = form.data['username']
         print("signup successful!\n")
         #TODO check form data w/ psql db
         #TODO if data valid, direct to hello_user, if not redirect to fail?
