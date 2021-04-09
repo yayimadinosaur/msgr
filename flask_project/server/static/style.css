@@ -8,3 +8,33 @@
     border-right: none;
     content: "";
 }
+
+/*
+.tableborder {
+    border : 1px solid black;
+}
+*/
+
+.tableborder {
+    border : 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    border : 1px solid black;
+    border-collapse: collapse;
+    padding : 20px 20px 20px 20px;
+}
+
+.left {
+    float: left;
+    width: 50%;
+}
+
+.btn_access_denied {
+    padding: 100px;
+}
+
+.text_access_denied {
+    font-size: 50%;
+}
