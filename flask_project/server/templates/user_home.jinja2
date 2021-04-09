@@ -7,7 +7,45 @@
 {% endblock %}
 
 {% block content1 %}
-    <div>
+    <div>    
+        <h2>Home page for {{ session['username'] }}</h2>
+        <div>
+        <table class="tableborder">
+            <tr>
+                <th colspan="100%">Details</th>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td>{{ session['username'] }}</td>
+                <td><button>Change</button></td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td>something2</td>
+                <td><button>Change</button></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>something3</td>
+                <td><button>Change</button></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>something4</td>
+                <td><button>Change</button></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>something5</td>
+                <td><button>Change</button></td>
+            </tr>
+        </table>
+        </div>
+        
+        <div style="background-color:red">
+        hi
+        </div>
+        
         <ul>
             <li>user logged in?</li>
                 <!--
@@ -18,7 +56,7 @@
                 {% endif %}
                 -->
                 {% if 'username' in session %}
-                    <a href="{{ url_for('logout') }}">log out</a>
+                    <button><a href="{{ url_for('logout') }}">log out</a></button>
                 {% else %}
                     <a href="{{ url_for('welcome') }}">log in</a>
                 {% endif %}
