@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+    <title>
+        PSQL data, only for dev testing
+    </title>
+{% endblock %}
+
+{% block content1 %}
+    <div>
+        <h1>users</h1>
+        <table class="tableborder">
+            <tr>
+                <th colspan="100%">Users</th>
+            </tr>
+            <tr>
+                <td>user_id</td>
+                <td>username</td>
+                <td>first_name</td>
+                <td>last_name</td>
+                <td>online_status</td>
+            </tr>
+            {% for item in session['psql_data']['users'] %}
+            <tr>
+            <td>{{ item.user_id }}</td>
+            <td>{{ item.username }}</td>
+            <td>{{ item.first_name }}</td>
+            <td>{{ item.last_name }}</td>
+            <td>{{ item.online_status}}</td>
+            </tr>
+
+        {% endfor %}
+        </table>
+    </div>
+
+    <div>
+        <h1>login_data</h1>
+        <table class="tableborder">
+            <tr>
+                <th colspan="100%">Users</th>
+            </tr>
+            <tr>
+                <td>user_id</td>
+                <td>email</td>
+                <td>password</td>
+                <td>access_token</td>
+                <td>refresh_token</td>
+            </tr>
+            {% for item in session['psql_data']['login_data'] %}
+            <tr>
+            <td>{{ item.user_id }}</td>
+            <td>{{ item.email}}</td>
+            <td>{{ item.password }}</td>
+            <td>{{ item.access_token }}</td>
+            <td>{{ item.refresh_token}}</td>
+            </tr>
+
+        {% endfor %}
+        </table>
+    </div>
+
+    <div>
+        <h1>user_messages</h1>
+        <table class="tableborder">
+            <tr>
+                <th colspan="100%">Users</th>
+            </tr>
+            <tr>
+                <td>user_id</td>
+                <td>message</td>
+                <td>message_between</td>
+                <td>message_date</td>
+            </tr>
+            {% if session['psql_data']['user_msgs'] | length == 0 %}
+                <tr>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                </tr>
+            {% endif %}
+            {% for item in session['psql_data']['user_msgs'] %}
+            <tr>
+            <td>{{ item.user_id }}</td>
+            <td>{{ item.message }}</td>
+            <td>{{ item.message_between }}</td>
+            <td>{{ item.message_date }}</td>
+            </tr>
+
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}
