@@ -3,6 +3,21 @@
 
 from models import Users, UserMessages, LoginData
 
+#   get all data from users in db
+def get_all_user_data():
+    user_data = Users.query.all()
+    return user_data
+
+#   get all data from login_data in db
+def get_all_login_data():
+    login_data = LoginData.query.all()
+    return login_data
+
+#   get all user_messages in db
+def get_all_user_message_data():
+    user_message_data = UserMessages.query.all()
+    return user_message_data
+
 #   signup query on database
 
 #   lookup user in the database to see if the account exists
