@@ -151,9 +151,7 @@ def users():
 @app.route('/userhome', methods=["GET", "POST"])
 def hello_user():
     if 'username' not in session:
-        return jsonify({
-            "access" : "denied"
-        })
+        return render_template('access_denied.jinja2')
     # return f"Hello {name}, this is your user page"
     return render_template('user_home.jinja2')
 
@@ -167,4 +165,36 @@ def messages():
 #TODO   >>>>REMOVE AFTER TESTING<<<<<
 @app.route('/psql', methods=['GET', 'POST'])
 def psql_db():
-    return url_for('psql_db')
+    psql_data = {
+        'users' : [],
+        'login_data' : [],
+        'user_msgs' : [],
+    }
+    user_data = database.get_all_user_data()
+    login_data = database.get_all_login_data()
+    user_msg_data = database.get_all_user_message_data()
+    for item in user_data:
+        tmp = {}
+        tmp['user_id'] = item.user_id
+        tmp['username'] = item.username
+        tmp['first_name'] = item.first_name
+        tmp['last_name'] = item.last_name
+        tmp['online_status'] = item.online_status
+        psql_data['users'].append(tmp)
+    for stuff in login_data:
+        pew = {}
+        pew['user_id'] = stuff.user_id
+        pew['email'] = stuff.email
+        pew['password'] = stuff.password
+        pew['access_token'] = stuff.access_token
+        pew['refresh_token'] = stuff.refresh_token
+        psql_data['login_data'].append(pew)
+    for omg in user_msg_data:
+        blah = {}
+        blah['user_id'] = omg.user_id
+        blah['message'] = omg.message
+        blah['message_between'] = omg.message_between
+        blah['message_date'] = omg.message_date
+        psql_data['user_msgs'].append(blah)
+    session["psql_data"] = psql_data
+    return render_template("psql.jinja2")
