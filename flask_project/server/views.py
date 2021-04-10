@@ -158,7 +158,7 @@ def hello_user():
 #   account + messages for user?
 @app.route('/messages', methods=["GET", "POST"])
 def messages():
-    return f'welcome to the messages page'
+    return render_template('user_messages.jinja2')
 
 
 #   TEST AREA TO READ DB locally
