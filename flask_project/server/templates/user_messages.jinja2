@@ -8,27 +8,34 @@
 
 {% block content1 %}
     <div class="user_messages_wrapper">
-        <div class="chat_all_messages_container">All Messages Container
-            <!--
-            <div>All Messages Title</div>
-            <div>Search</div>
-            -->
+        <div class="chat_friends_container">
+                <!--
+                <div>Friends Title</div>
+                <div>List of Friends + Msgs</div>
+                -->
+            <div>
+                <Button class="border_fitted">Profile</Button>
+            </div>
+            <div>
+                <Button class="border_fitted">Settings</Button>
+            </div>
         </div>
 
-        <div class="chat_friends_container">Friends Container
-            <!--
-            <div>Friends Title</div>
-            <div>List of Friends + Msgs</div>
-            -->
+        <div class="inbox_all_container border_only">
+            <div class="messages_title border_only">Messages</div>
+            <div>
+                <Textarea class="search_bar border_fitted" placeholder="Q Search"></Textarea>
+            </div>
+            <div class="inbox_messages_container border_fitted"></div>
         </div>
-
-        <div class="chat_messages_container">Chat Container
+        
+        <div class="chat_direct_message_container border_fitted">Direct Message Container
             <!--
             <div>Chat Message w/ selected friend(s)</div>
             -->
         </div>
 
-        <div class="chat_message_input_container">Chat Input Container
+        <div class="chat_message_input_container border_fitted">Chat Message Input Container
             <!--
             <div>Chat Input</div>
             <div>Send Msg Button</div>

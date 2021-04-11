@@ -9,11 +9,20 @@
     content: "";
 }
 
-/*
-.tableborder {
-    border : 1px solid black;
+.border_only {
+    border: 1px solid black;
 }
-*/
+
+.border_fitted {
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 10%;
+    margin: 1%;
+    border-radius: 25px;
+}
+
+/* table for psql db */
 
 .tableborder {
     border : 1px solid black;
@@ -39,6 +48,10 @@ th, td {
     font-size: 50%;
 }
 
+/*  
+    messages 
+*/
+
 .user_messages_wrapper {
     display: grid;
     grid-template-columns: auto;
@@ -52,22 +65,52 @@ th, td {
     /*
     grid-auto-rows: minmax(200px, auto);
     */
+    width: 97vw;
+    height: 97vh;
 }
+
 .chat_friends_container {
     grid-column: 1;
     grid-row: 1 / 3;
     background-color: #00FFFF;
     border-radius: 25px;
+    position: relative;
 }
 
-.chat_messages_container {
+/*  messages */
+
+.messages_title {
+    background-color: green;
+    text-align: center;
+    border-radius: 25px 25px 0% 0%;
+}
+
+/*  search */
+
+.search_bar {
+    resize: none;
+    padding: 5% 5% 0% 5%;
+    text-align: center;
+    width: 90%;
+}
+
+.inbox_all_container {
     grid-column: 1;
     grid-row: 3 / 5;
-    background-color: #228B22;
+    background-color: /*#228B22*/white;
     border-radius: 25px;
+    display: flex;
+    flex-direction: column;
 }
 
-.chat_all_messages_container {
+.inbox_messages_container {
+    background-color: orange;
+    padding: 0% 10% 0% 10%;
+    margin: 0% 5% 5% 5%;
+    flex-grow: 1;
+}
+
+.chat_direct_message_container {
     grid-column: 2 / 4;
     grid-row: 1 / 4;
     background-color: hotpink;
