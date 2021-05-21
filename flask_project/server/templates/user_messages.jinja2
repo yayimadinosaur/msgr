@@ -36,10 +36,15 @@
         </div>
 
         <div class="chat_message_input_container border_fitted">Chat Message Input Container
+            <form method="POST">
+            {{ form.csrf_token }}
             <!--
             <div>Chat Input</div>
             <div>Send Msg Button</div>
             -->
+            {{ form.chat_message }}
+            {{ form.send_message }}
+             </form>
         </div>
     </div>
 {% endblock %} 

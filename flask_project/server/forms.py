@@ -83,3 +83,46 @@ class LoginForm(FlaskForm):
     )
     login = SubmitField('Login')
     signup = SubmitField('Signup')
+
+class ChatMessage(FlaskForm):
+    chat_message = StringField(
+        '',
+        validators=[
+            #   text length? maybe limit to 100 for now
+        ],
+    )
+    send_message = SubmitField('Send')
+
+class ChangeUserSettings(FlaskForm):
+    username = StringField(
+        '',
+        validators=[
+
+        ],
+    )
+    first_name = StringField(
+        '',
+        validators=[
+
+        ],
+    )
+    last_name = StringField(
+        '',
+        validators=[
+
+        ],
+    )
+    email = StringField(
+        '',
+        validators=[
+
+        ],
+    )
+    password = StringField(
+        '',
+        validators=[
+
+        ],
+    )
+    save_changes = SubmitField('Save')
+    clear_changes = SubmitField('Clear All')

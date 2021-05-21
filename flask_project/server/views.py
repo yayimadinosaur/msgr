@@ -3,7 +3,7 @@ from run import app, db
 from flask import jsonify, render_template, url_for, redirect, request, session
 
 #   import register + login forms
-from forms import SignupForm, LoginForm
+from forms import SignupForm, LoginForm, ChatMessage, ChangeUserSettings
 #   import user (custom)
 #   do we need?
 from user import User
@@ -150,15 +150,17 @@ def users():
 # def hello_user(name):
 @app.route('/userhome', methods=["GET", "POST"])
 def hello_user():
+    form = ChangeUserSettings()
     if 'username' not in session:
         return render_template('access_denied.jinja2')
     # return f"Hello {name}, this is your user page"
-    return render_template('user_home.jinja2')
+    return render_template('user_home.jinja2', form=form)
 
 #   account + messages for user?
 @app.route('/messages', methods=["GET", "POST"])
 def messages():
-    return render_template('user_messages.jinja2')
+    form = ChatMessage()
+    return render_template('user_messages.jinja2', form=form)
 
 
 #   TEST AREA TO READ DB locally

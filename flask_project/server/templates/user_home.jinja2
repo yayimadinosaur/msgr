@@ -7,43 +7,61 @@
 {% endblock %}
 
 {% block content1 %}
-    <div>    
+    <div>
+        <form method="POST">
+        {{ form.csrf_token }}
+        <fieldset>
         <h2>Home page for {{ session['username'] }}</h2>
+
         <div>
-        <table class="tableborder">
-            <tr>
-                <th colspan="100%">Details</th>
-            </tr>
-            <tr>
-                <td>Username</td>
-                <td>{{ session['username'] }}</td>
-                <td><button>Change</button></td>
-            </tr>
-            <tr>
-                <td>First Name</td>
-                <td>something2</td>
-                <td><button>Change</button></td>
-            </tr>
-            <tr>
-                <td>Last Name</td>
-                <td>something3</td>
-                <td><button>Change</button></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>something4</td>
-                <td><button>Change</button></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td>something5</td>
-                <td><button>Change</button></td>
-            </tr>
-        </table>
+            <button><a href="{{url_for('messages')}}">Messages</a></button>
+            <p>
         </div>
         
-        <div style="background-color:red">
-        hi
+        <div>
+            <table class="tableborder">
+                <tr>
+                    <th colspan="100%">Details</th>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td>{{ session['username'] }}</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td>something2</td>
+                    <td>{{ form.first_name }}</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>something3</td>
+                    <td>{{ form.last_name }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>something4</td>
+                    <td>{{ form.email }}</td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td>something5</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+            </table>
+            <div>
+                <!--
+                    move buttons to right of table
+                -->
+                {{ form.save_changes }}
+                {{ form.clear_changes }}
+            </div>
+        </div>
+        
+        <div style="background-color:lightblue">
+            <p>
+                >>>>change to user settings page in the future<<<<
+            </p>
         </div>
         
         <ul>
